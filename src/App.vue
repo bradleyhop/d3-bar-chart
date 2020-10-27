@@ -1,20 +1,24 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <h1 id="project-title">Data Visualization Projects - Visualize Data with a Bar Chart</h1>
+  <BarChart />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import BarChart from './components/BarChart.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
+    BarChart,
   },
 };
 </script>
 
 <style lang="scss">
+body {
+  background-color: lightblue;
+}
+
 #app {
   margin-top: 60px;
   font-family: Avenir, Helvetica, Arial, sans-serif;
