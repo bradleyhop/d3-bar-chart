@@ -4,8 +4,20 @@
 export default {
   name: 'BarChart',
 
+  data() {
+    return {
+      gdpData: undefined,
+    };
+  },
+
   mounted() {
-    fetch('https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json');
+    fetch('https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json')
+      .then((response) => response.json())
+      .then((data) => {
+        this.gdpData = data;
+        console.log(this.gdpData.data);
+      })
+      .catch((error) => console.log(error));
   },
 };
 </script>
