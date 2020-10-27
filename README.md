@@ -1,24 +1,7 @@
-# d3-bar-chart
+# D3 Bar Chart
 
-## Project setup
-```
-npm install
-```
+## Project Info
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+This is a project for freeCodeCamp's Data Visualization Project: Visualize Data with a Bar Chart.
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+See the [User Stories](https://www.freecodecamp.org/learn/data-visualization/data-visualization-projects/visualize-data-with-a-bar-chart) for project requirements.
