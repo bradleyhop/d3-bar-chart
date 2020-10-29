@@ -6,7 +6,10 @@ export default {
 
   data() {
     return {
-      gdpData: undefined,
+      gdpData: undefined, // placeholder for fetch'ed gdp data
+      widthChart: 700,
+      heightChart: 500,
+      paddingChart: 50,
     };
   },
 
@@ -23,20 +26,36 @@ export default {
 </script>
 
 <template>
-  <p id="title" class="bar-chart-box">
-    Hello, world!
-  </p>
+  <div class="container-bar-chart">
+    <h2 id="title" class="chart-title">
+      United States GDP 1947 - 2015
+    </h2>
+    <div id="bar-chart" class="bar-chart">
+    </div>
+  </div>
 </template>
 
 <style scoped lang="scss">
-.bar-chart-box {
-  background-color: lightgrey;
+.container-bar-chart {
+  background-color: lightblue;
+  border-radius: 15px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   margin: auto;
-  width: 80vw;
-  height: 70vh;
+  width: 750px;
+  height: 600px;
 }
 
 .chart-title {
-  color: #000;
+  color: #fff;
+  font-family: Helvetica, Arial, sans-serif;
+  padding-top: 1rem;
+  text-shadow: 1px 1px 1px #000;
+}
+
+.bar-chart {
+  border: 1px solid red;
+  width: 700px;
+  height: 500px;
+  margin: auto;
 }
 </style>
