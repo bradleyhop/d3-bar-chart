@@ -15,8 +15,16 @@ export default {
 </script>
 
 <style lang="scss">
-body {
-  background-color: lightblue;
+* {
+  box-sizing: border-box;
+
+  &:before {
+    box-sizing: border-box;
+  }
+
+  &:after {
+    box-sizing: border-box;
+  }
 }
 
 #app {
@@ -26,5 +34,9 @@ body {
   text-align: center;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#project-title {
+  margin-bottom: 2rem;
 }
 </style>
