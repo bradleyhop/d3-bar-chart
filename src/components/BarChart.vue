@@ -1,5 +1,5 @@
 <script>
-// import * as d3 from 'd3';
+import * as d3 from 'd3';
 
 export default {
   name: 'BarChart',
@@ -10,6 +10,7 @@ export default {
       widthChart: 700,
       heightChart: 500,
       paddingChart: 50,
+      dataTest: [21, 51, 61, 18, 12, 31],
     };
   },
 
@@ -20,7 +21,21 @@ export default {
         this.gdpData = data;
         console.log(this.gdpData.data);
       })
+      .then(this.init())
       .catch((error) => console.log(error));
+  },
+
+  methods: {
+    init() {
+      d3.select('#bar-chart')
+        .selectAll('div')
+        .data(this.dataTest)
+        .enter()
+        .append('svg')
+        .attr('class', 'bar')
+        .attr('height', (d) => d * 5);
+    },
+
   },
 };
 </script>
@@ -35,27 +50,38 @@ export default {
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
+/*
+ * NB: Do not scope this component's style! D3 won't be able to see it!!!
+ */
+
 .container-bar-chart {
-  background-color: lightblue;
-  border-radius: 15px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  margin: auto;
   width: 750px;
   height: 600px;
+  margin: auto;
+  background-color: lightblue;
+  border-radius: 15px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
 .chart-title {
-  color: #fff;
-  font-family: Helvetica, Arial, sans-serif;
   padding-top: 1rem;
+  font-family: Helvetica, Arial, sans-serif;
+  color: #fff;
   text-shadow: 1px 1px 1px #000;
 }
 
 .bar-chart {
-  border: 1px solid red;
   width: 700px;
   height: 500px;
   margin: auto;
+  border: 1px solid red;
+}
+
+.bar {
+  display: inline-block;
+  width: 20px;
+  margin: 2px;
+  background-color: #fff;
 }
 </style>
