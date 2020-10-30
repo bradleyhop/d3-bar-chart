@@ -7,10 +7,9 @@ export default {
   data() {
     return {
       gdpData: undefined, // placeholder for fetch'ed gdp data
-      widthChart: 700,
-      heightChart: 500,
-      paddingChart: 50,
-      dataTest: [21, 51, 61, 18, 12, 31],
+      widthChart: 1100, // width of svg area
+      heightChart: 500, // height of svg area
+      dataTest: [21, 51, 61, 18, 12, 31, 34, 22, 5],
     };
   },
 
@@ -18,22 +17,33 @@ export default {
     fetch('https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json')
       .then((response) => response.json())
       .then((data) => {
-        this.gdpData = data;
-        console.log(this.gdpData.data);
+        this.gdpData = data.data;
       })
-      .then(this.init())
+      .then(() => this.init())
       .catch((error) => console.log(error));
   },
 
   methods: {
+    // called by mounted() after async data is fetch'ed
     init() {
-      d3.select('#bar-chart')
-        .selectAll('div')
-        .data(this.dataTest)
-        .enter()
+      const svg = d3.select('#bar-chart')
         .append('svg')
-        .attr('class', 'bar')
-        .attr('height', (d) => d * 5);
+        .attr('width', this.widthChart)
+        .attr('height', this.heightChart);
+
+      svg.selectAll('rect')
+        .data(this.gdpData)
+        .enter()
+        .append('rect')
+        .attr('x', (d, i) => i * 4) // make just a little bigger than x value for margin
+        .attr('y', (d) => this.heightChart - (d[1] / 37)) // divide to fit large values
+        .attr('height', (d) => d[1])
+        .attr('width', 3)
+        .attr('class', 'bar') // class required for project
+        // hover to show value with tootip
+        .append('title')
+        .attr('id', 'tooltip') // id required for project
+        .text((d) => `${d[0]},\n $${d[1]} Billion`);
     },
 
   },
@@ -56,7 +66,7 @@ export default {
  */
 
 .container-bar-chart {
-  width: 750px;
+  width: 1200px;
   height: 600px;
   margin: auto;
   background-color: lightblue;
@@ -72,16 +82,18 @@ export default {
 }
 
 .bar-chart {
-  width: 700px;
+  width: 1100px;
   height: 500px;
   margin: auto;
-  border: 1px solid red;
+  // border: 1px solid red;
+  text-align: left; // pushes bars/graph to left instead of inheriting center
 }
 
 .bar {
-  display: inline-block;
-  width: 20px;
-  margin: 2px;
-  background-color: #fff;
+  fill: #fff; // background-color for svg
+
+  &:hover {
+    fill: #000;
+  }
 }
 </style>
