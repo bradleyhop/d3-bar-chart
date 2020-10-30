@@ -1,5 +1,5 @@
 <template>
-  <h1 id="project-title">Data Visualization Projects - Visualize Data with a Bar Chart</h1>
+  <h1 class="project-title">Data Visualization Projects - Visualize Data with a Bar Chart</h1>
   <BarChart />
 </template>
 
@@ -18,25 +18,25 @@ export default {
 * {
   box-sizing: border-box;
 
-  &:before {
+  &::before {
     box-sizing: border-box;
   }
 
-  &:after {
+  &::after {
     box-sizing: border-box;
   }
 }
 
 #app {
-  margin-top: 60px;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   color: #2c3e50;
-  text-align: center;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin-top: 60px;
+  text-align: center;
 }
 
-#project-title {
+.project-title {
   margin-bottom: 2rem;
 }
 </style>
