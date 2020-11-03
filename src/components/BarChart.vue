@@ -26,6 +26,7 @@ export default {
   methods: {
     // called by mounted() after async data is fetch'ed
     init() {
+      // choose element to put our svg element
       const svg = d3.select('#bar-chart')
         .append('svg')
         .attr('width', this.widthChart)
@@ -43,9 +44,9 @@ export default {
       const xScale = d3.scaleLinear()
         .domain([
           d3.min(this.gdpData, (d) => d[0]),
-          d3.max(this.gdpData, (d) => d[1]),
+          d3.max(this.gdpData, (d) => d[0]),
         ])
-        .range([this.widthChart - this.padding, this.padding]);
+        .range([this.padding, this.widthChart - this.padding]);
 
       // d3 method for drawing bottom axis
       const xAxis = d3.axisBottom(xScale);
@@ -61,6 +62,8 @@ export default {
         .attr('height', (d) => d[1])
         .attr('width', 2)
         .attr('class', 'bar') // class required for project
+        .attr('data-date', (d) => d[0]) // properties required for project
+        .attr('data-gdp', (d) => d[1]) // properties required for project
         // hover to show value with tootip
         .append('title')
         .attr('id', 'tooltip') // id required for project
