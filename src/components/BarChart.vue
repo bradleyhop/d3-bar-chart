@@ -7,9 +7,9 @@ export default {
   data() {
     return {
       gdpData: undefined, // placeholder for fetch'ed gdp data
-      widthChart: 1100, // width of svg area
+      widthChart: 1000, // width of svg area
       heightChart: 500, // height of svg area
-      dataTest: [21, 51, 61, 18, 12, 31, 34, 22, 5],
+      padding: 50, // padding of chart
     };
   },
 
@@ -31,19 +31,51 @@ export default {
         .attr('width', this.widthChart)
         .attr('height', this.heightChart);
 
+      // setup y-axis (dollars in billions)
+      const yScale = d3.scaleLinear()
+        .domain([
+          d3.min(this.gdpData, (d) => d[1]),
+          d3.max(this.gdpData, (d) => d[1]),
+        ])
+        .range([this.heightChart - this.padding, this.padding]);
+
+      // setup x-axis (year)
+      const xScale = d3.scaleLinear()
+        .domain([
+          d3.min(this.gdpData, (d) => d[0]),
+          d3.max(this.gdpData, (d) => d[1]),
+        ])
+        .range([this.widthChart - this.padding, this.padding]);
+
+      // d3 method for drawing bottom axis
+      const xAxis = d3.axisBottom(xScale);
+      const yAxis = d3.axisLeft(yScale);
+
+      // compute and draw bars for data
       svg.selectAll('rect')
         .data(this.gdpData)
         .enter()
         .append('rect')
-        .attr('x', (d, i) => i * 4) // make just a little bigger than x value for margin
-        .attr('y', (d) => this.heightChart - (d[1] / 37)) // divide to fit large values
+        .attr('x', (d, i) => this.padding + (i * 3)) // make just a little bigger than x value for margin
+        .attr('y', (d) => this.heightChart - (d[1] / 41) - this.padding) // divide to fit large values, container
         .attr('height', (d) => d[1])
-        .attr('width', 3)
+        .attr('width', 2)
         .attr('class', 'bar') // class required for project
         // hover to show value with tootip
         .append('title')
         .attr('id', 'tooltip') // id required for project
         .text((d) => `${d[0]},\n $${d[1]} Billion`);
+
+      // draw x-axis
+      svg.append('g')
+        .attr('transform', `translate(0, ${this.heightChart - this.padding})`)
+        .attr('id', 'x-axis') // id required for project
+        .call(xAxis);
+
+      svg.append('g')
+        .attr('transform', `translate(${this.padding}, 0)`)
+        .attr('id', 'y-axis') // id required for project
+        .call(yAxis);
     },
 
   },
@@ -66,7 +98,7 @@ export default {
  */
 
 .container-bar-chart {
-  width: 1200px;
+  width: 1000px;
   height: 600px;
   margin: auto;
   background-color: lightblue;
@@ -82,7 +114,7 @@ export default {
 }
 
 .bar-chart {
-  width: 1100px;
+  width: 900px;
   height: 500px;
   margin: auto;
   // border: 1px solid red;
