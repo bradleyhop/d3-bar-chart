@@ -35,16 +35,16 @@ export default {
       // setup y-axis (dollars in billions)
       const yScale = d3.scaleLinear()
         .domain([
-          d3.min(this.gdpData, (d) => d[1]),
+          0,
           d3.max(this.gdpData, (d) => d[1]),
         ])
         .range([this.heightChart - this.padding, this.padding]);
 
       // setup x-axis (year)
-      const xScale = d3.scaleLinear()
+      const xScale = d3.scaleTime()
         .domain([
-          d3.min(this.gdpData, (d) => d[0]),
-          d3.max(this.gdpData, (d) => d[0]),
+          d3.min(this.gdpData, (d) => new Date(d[0])),
+          d3.max(this.gdpData, (d) => new Date(d[0])),
         ])
         .range([this.padding, this.widthChart - this.padding]);
 
@@ -56,6 +56,7 @@ export default {
       const divTool = d3.select('#bar-chart')
         .append('div')
         .attr('class', 'tooltip')
+        .attr('id', 'tooltip')
         .style('opacity', 0);
 
       // compute and draw bars for data
@@ -63,33 +64,27 @@ export default {
         .data(this.gdpData)
         .enter()
         .append('rect')
-        .attr('x', (d, i) => this.padding + (i * 3)) // make just a little bigger than 'width' value for margin
-        .attr('y', (d) => this.heightChart - (d[1] / 41)) // divide to fit large values, container
-        .attr('height', (d) => d[1])
-        .attr('width', 2)
+        .attr('x', (d) => xScale(new Date(d[0])))
+        .attr('y', (d) => yScale(d[1]))
+        .attr('width', this.widthChart / this.gdpData.length)
+        .attr('height', (d) => (this.heightChart - this.padding) - yScale(d[1]))
         .attr('class', 'bar') // class required for project
         .attr('data-date', (d) => d[0]) // properties required for project
         .attr('data-gdp', (d) => d[1]) // properties required for project
-        // hover to show value with tootip
-        /*
-         * .append('title')
-         * .attr('id', 'tooltip') // id required for project
-         * .text((d) => `${d[0]},\n $${d[1]} Billion`);
-         */
-        // TODO: tooltip(), fix for d3 v6
-        .on('mouseover', (d) => {
-          const temp = d;
-          divTool.transition()
-            .duration(100)
-            .style('opacity', 0.9);
-          divTool.text(() => `${temp[0]}, \n$${temp[1]} Billion`)
-            .style('right', '10px')
-            .style('top', '10px');
+        // hover to show value with tooltip as defined in divTool above
+        .on('mouseover', (event, d) => {
+          divTool
+            .attr('data-date', d[0])
+            .text(`${d[0]},\n$${d[1]}`)
+            .style('opacity', '1')
+            .style('display', 'block')
+            .style('top', `${event.pageY - 35}px`)
+            .style('left', `${event.pageX + 7}px`);
         })
         .on('mouseout', () => {
-          divTool.transition()
-            .duration(200)
-            .style('opacity', 0);
+          divTool
+            .style('opacity', 0)
+            .style('display', 'none');
         });
 
       // draw x-axis
@@ -98,6 +93,7 @@ export default {
         .attr('id', 'x-axis') // id required for project
         .call(xAxis);
 
+      // draw y-axis
       svg.append('g')
         .attr('transform', `translate(${this.padding}, 0)`)
         .attr('id', 'y-axis') // id required for project
@@ -124,7 +120,7 @@ export default {
  */
 
 .container-bar-chart {
-  width: 1000px;
+  width: 1050px;
   height: 600px;
   margin: auto;
   background-color: lightblue;
@@ -157,14 +153,15 @@ export default {
 
 .tooltip {
   position: absolute;
-  text-align: center;
-  width: 60px;
-  height: 28px;
-  padding: 2px;
+  width: 7rem;
+  height: 3rem;
+  padding: 0.5rem;
   font: 12px sans-serif;
-  background: lightsteelblue;
-  border: 0px;
-  border-radius: 8px;
+  color: #fff;
+  text-align: center;
   pointer-events: none;
+  background: #000;
+  border: 0;
+  border-radius: 8px;
 }
 </style>
