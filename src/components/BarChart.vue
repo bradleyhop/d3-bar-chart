@@ -48,26 +48,49 @@ export default {
         ])
         .range([this.padding, this.widthChart - this.padding]);
 
-      // d3 method for drawing bottom axis
+      // d3 method for drawing x- & y-axis
       const xAxis = d3.axisBottom(xScale);
       const yAxis = d3.axisLeft(yScale);
+
+      // function declaration for tooltip div
+      const divTool = d3.select('#bar-chart')
+        .append('div')
+        .attr('class', 'tooltip')
+        .style('opacity', 0);
 
       // compute and draw bars for data
       svg.selectAll('rect')
         .data(this.gdpData)
         .enter()
         .append('rect')
-        .attr('x', (d, i) => this.padding + (i * 3)) // make just a little bigger than x value for margin
-        .attr('y', (d) => this.heightChart - (d[1] / 41) - this.padding) // divide to fit large values, container
+        .attr('x', (d, i) => this.padding + (i * 3)) // make just a little bigger than 'width' value for margin
+        .attr('y', (d) => this.heightChart - (d[1] / 41)) // divide to fit large values, container
         .attr('height', (d) => d[1])
         .attr('width', 2)
         .attr('class', 'bar') // class required for project
         .attr('data-date', (d) => d[0]) // properties required for project
         .attr('data-gdp', (d) => d[1]) // properties required for project
         // hover to show value with tootip
-        .append('title')
-        .attr('id', 'tooltip') // id required for project
-        .text((d) => `${d[0]},\n $${d[1]} Billion`);
+        /*
+         * .append('title')
+         * .attr('id', 'tooltip') // id required for project
+         * .text((d) => `${d[0]},\n $${d[1]} Billion`);
+         */
+        // TODO: tooltip(), fix for d3 v6
+        .on('mouseover', (d) => {
+          const temp = d;
+          divTool.transition()
+            .duration(100)
+            .style('opacity', 0.9);
+          divTool.text(() => `${temp[0]}, \n$${temp[1]} Billion`)
+            .style('right', '10px')
+            .style('top', '10px');
+        })
+        .on('mouseout', () => {
+          divTool.transition()
+            .duration(200)
+            .style('opacity', 0);
+        });
 
       // draw x-axis
       svg.append('g')
@@ -130,5 +153,18 @@ export default {
   &:hover {
     fill: #000;
   }
+}
+
+.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 60px;
+  height: 28px;
+  padding: 2px;
+  font: 12px sans-serif;
+  background: lightsteelblue;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
 }
 </style>
