@@ -38,7 +38,10 @@ export default {
           0,
           d3.max(this.gdpData, (d) => d[1]),
         ])
-        .range([this.heightChart - this.padding, this.padding]);
+        .range([
+          this.heightChart - this.padding,
+          this.padding,
+        ]);
 
       // setup x-axis (year)
       const xScale = d3.scaleTime()
@@ -46,7 +49,10 @@ export default {
           d3.min(this.gdpData, (d) => new Date(d[0])),
           d3.max(this.gdpData, (d) => new Date(d[0])),
         ])
-        .range([this.padding, this.widthChart - this.padding]);
+        .range([
+          this.padding,
+          this.widthChart - this.padding,
+        ]);
 
       // d3 method for drawing x- & y-axis
       const xAxis = d3.axisBottom(xScale);
@@ -75,11 +81,11 @@ export default {
         .on('mouseover', (event, d) => {
           divTool
             .attr('data-date', d[0])
-            .text(`${d[0]},\n$${d[1]}`)
+            .html(`<p>${d[0]},\n$${d[1]} Billion</p>`)
             .style('opacity', '1')
             .style('display', 'block')
-            .style('top', `${event.pageY - 35}px`)
-            .style('left', `${event.pageX + 7}px`);
+            .style('top', `${event.pageY - 50}px`)
+            .style('left', `${event.pageX + 4}px`);
         })
         .on('mouseout', () => {
           divTool
@@ -107,7 +113,7 @@ export default {
 <template>
   <div class="container-bar-chart">
     <h2 id="title" class="chart-title">
-      United States GDP 1947 - 2015
+      UNITED STATES GDP 1947 - 2015
     </h2>
     <div id="bar-chart" class="bar-chart">
     </div>
@@ -123,45 +129,46 @@ export default {
   width: 1050px;
   height: 600px;
   margin: auto;
-  background-color: lightblue;
+  background-color: $chart-background;
   border-radius: 15px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
 .chart-title {
-  padding-top: 1rem;
+  padding-top: 1.25rem;
   font-family: Helvetica, Arial, sans-serif;
-  color: #fff;
-  text-shadow: 1px 1px 1px #000;
+  color: $text-gray;
 }
 
 .bar-chart {
-  width: 900px;
+  width: 1000px;
   height: 500px;
   margin: auto;
-  // border: 1px solid red;
-  text-align: left; // pushes bars/graph to left instead of inheriting center
 }
 
+// svg rect
 .bar {
-  fill: #fff; // background-color for svg
+  fill: $bar-fill;
 
   &:hover {
-    fill: #000;
+    fill: $mouseover;
   }
+}
+
+// axises
+.tick {
+  color: $text-gray;
 }
 
 .tooltip {
   position: absolute;
   width: 7rem;
-  height: 3rem;
-  padding: 0.5rem;
+  height: 3.5rem;
   font: 12px sans-serif;
   color: #fff;
   text-align: center;
-  pointer-events: none;
-  background: #000;
-  border: 0;
+  background: $mouseover;
+  border: none;
   border-radius: 8px;
 }
 </style>
