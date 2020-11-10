@@ -168,7 +168,7 @@ export default {
   color: #fff;
   text-align: center;
   background: $mouseover;
-  border: none;
+  border-style: none;
   border-radius: 8px;
 }
 </style>
