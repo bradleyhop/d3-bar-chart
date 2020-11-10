@@ -10,7 +10,7 @@
       </a>
         &#169; 2020
       <a
-        href="https://github.com/bradleyhop/bradleyhop.github.io/tree/master/d3-bar-chart"
+        href="https://github.com/bradleyhop/d3-bar-chart"
         rel="noopener"
         target="_blank"
       >
