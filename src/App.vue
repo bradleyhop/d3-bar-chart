@@ -39,14 +39,14 @@ export default {
 }
 
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  display: flex; // boilerplate to keep footer down below
+  height: 100vh; // needed to stick the footer to bottom
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
   color: $text-gray;
   text-align: center;
+  flex-direction: column; // footer at the bottom ;)
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  display: flex; // boilerplate to keep footer down below
-  flex-direction: column; // footer at the bottom ;)
-  height: 100vh; // needed to stick the footer to bottom
 }
 
 .content {
