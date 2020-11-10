@@ -127,7 +127,7 @@ export default {
 
 .container-bar-chart {
   width: 1050px;
-  height: 600px;
+  height: 550px;
   margin: auto;
   background-color: $chart-background;
   border-radius: 15px;
@@ -135,8 +135,8 @@ export default {
 }
 
 .chart-title {
-  padding-top: 1.25rem;
-  font-family: Helvetica, Arial, sans-serif;
+  padding-top: 1rem;
+  margin-bottom: 0;
   color: $text-gray;
 }
 
