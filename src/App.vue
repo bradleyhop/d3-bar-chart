@@ -28,6 +28,7 @@ export default {
 <style lang="scss">
 * {
   box-sizing: border-box;
+  margin: 0;
 
   &::before {
     box-sizing: border-box;
@@ -42,6 +43,7 @@ export default {
   display: flex; // boilerplate to keep footer down below
   height: 100vh; // needed to stick the footer to bottom
   font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  font-size: 16px;
   color: $text-gray;
   text-align: center;
   flex-direction: column; // footer at the bottom ;)
@@ -51,11 +53,10 @@ export default {
 
 .content {
   flex: 1 0 auto; // grow page space to content
-  margin-bottom: 2rem;
 }
 
 .project-title {
-  margin-bottom: 2rem;
+  margin: 2rem;
 }
 
 footer {

@@ -9,7 +9,7 @@ export default {
       gdpData: undefined, // placeholder for fetch'ed gdp data
       widthChart: 1000, // width of svg area
       heightChart: 500, // height of svg area
-      padding: 50, // padding of chart
+      padding: 65, // padding of chart
     };
   },
 
@@ -58,7 +58,7 @@ export default {
       const xAxis = d3.axisBottom(xScale);
       const yAxis = d3.axisLeft(yScale);
 
-      // function declaration for tooltip div
+      // function declaration for tooltip div element
       const divTool = d3.select('#bar-chart')
         .append('div')
         .attr('class', 'tooltip')
@@ -81,9 +81,10 @@ export default {
         .on('mouseover', (event, d) => {
           divTool
             .attr('data-date', d[0])
-            .html(`<p>${d[0]},\n$${d[1]} Billion</p>`)
+            .html(`<p>${d[0]},
+                      $${d[1]} Billion</p>`)
             .style('opacity', '1')
-            .style('display', 'block')
+            .style('display', 'flex') // to align items centrally
             .style('top', `${event.pageY - 50}px`)
             .style('left', `${event.pageX + 4}px`);
         })
@@ -104,6 +105,23 @@ export default {
         .attr('transform', `translate(${this.padding}, 0)`)
         .attr('id', 'y-axis') // id required for project
         .call(yAxis);
+
+      // x-axis label
+      svg.append('text')
+        .attr('class', 'axis-label')
+        .attr('text-anchor', 'end')
+        .attr('x', this.widthChart / 2)
+        .attr('y', this.heightChart - 28)
+        .text('Year (by Quarter)');
+
+      // y-axis label
+      svg.append('text')
+        .attr('class', 'axis-label')
+        .attr('text-anchor', 'end')
+        .attr('y', 10) // pushes text to the right
+        .attr('x', -130) // pushes text down
+        .attr('transform', 'rotate(-90)') // vertical text
+        .text('Gross Domestic Product ( in Billions )');
     },
 
   },
@@ -140,12 +158,6 @@ export default {
   color: $text-gray;
 }
 
-.bar-chart {
-  width: 1000px;
-  height: 500px;
-  margin: auto;
-}
-
 // svg rect
 .bar {
   fill: $bar-fill;
@@ -160,15 +172,21 @@ export default {
   color: $text-gray;
 }
 
+.axis-label {
+  font-size: 0.8rem;
+}
+
 .tooltip {
   position: absolute;
   width: 7rem;
-  height: 3.5rem;
+  height: 3rem;
   font: 12px sans-serif;
-  color: #fff;
+  fill: $text-gray;
   text-align: center;
   background: $mouseover;
   border-style: none;
-  border-radius: 8px;
+  border-radius: 15px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  align-items: center;
 }
 </style>
