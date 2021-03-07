@@ -17,7 +17,8 @@ export default {
     fetch('https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json')
       .then((response) => response.json())
       .then((data) => {
-        this.gdpData = data.data;
+        // data key is where what we need lives; make non-reactive in vue for speedup
+        this.gdpData = Object.freeze(data.data);
       })
       .then(() => this.init())
       .catch((error) => console.log(error));
