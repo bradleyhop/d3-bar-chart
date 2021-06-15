@@ -39,6 +39,10 @@ export default {
   }
 }
 
+html {
+  background-color: #fff;
+}
+
 #app {
   display: flex; // boilerplate to keep footer down below
   height: 100vh; // needed to stick the footer to bottom
@@ -56,7 +60,7 @@ export default {
 }
 
 .project-title {
-  margin: 2rem;
+  margin: 1rem 0 2rem 0;
 }
 
 footer {

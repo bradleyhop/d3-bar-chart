@@ -15,7 +15,7 @@ export default {
     <div class="footer-copy">
       <a
         href="https://github.com/bradleyhop/"
-        rel="noopener"
+        rel="noopener noreferrer"
         target="_blank"
         class="footer-link"
       >
@@ -24,7 +24,7 @@ export default {
         &#169;{{ currentYear }}
       <a
         href="https://github.com/bradleyhop/d3-bar-chart"
-        rel="noopener"
+        rel="noopener noreferrer"
         target="_blank"
         class="footer-link"
       >

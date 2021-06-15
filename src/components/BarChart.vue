@@ -148,6 +148,7 @@ export default {
   width: 1050px;
   height: 550px;
   margin: auto;
+  margin-bottom: 2rem;
   background-color: $chart-background;
   border-radius: 15px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -179,14 +180,14 @@ export default {
 
 .tooltip {
   position: absolute;
-  width: 7rem;
-  height: 3rem;
+  width: 7.5rem;
+  height: 3.5rem;
   font: 12px sans-serif;
   fill: $text-gray;
   text-align: center;
   background: $mouseover;
   border-style: none;
-  border-radius: 15px;
+  border-radius: 10px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   align-items: center;
 }

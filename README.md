@@ -1,5 +1,7 @@
 # D3 Bar Chart
 
+[live demo]( https://bradleyhop.github.io/d3-barchart-build/ )
+
 This is a project for freeCodeCamp's Data Visualization Project: Visualize Data
 with a Bar Chart.
 
@@ -11,6 +13,6 @@ for project requirements.
 
 ## Testing
 
-freeCodeCamp offers a script that will test each User Story point. To test, select the testing
-component, choose D3 Bar Chart from the dropdown menu, and hit 'Run Tests'. Select the 'Tests'
-button to see details of test.
+freeCodeCamp offers a script that will test each User Story point. To test,
+select the testing component, choose D3 Bar Chart from the dropdown menu, and
+hit 'Run Tests'. Select the 'Tests' button to see details of test.
